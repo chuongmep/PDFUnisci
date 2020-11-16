@@ -15,7 +15,7 @@ namespace PDFUnisci
         static int _DefaultDigit = 3;
 
         public static int DefaultDigit
-        { 
+        {
             get
             {
                 return _DefaultDigit;
@@ -26,22 +26,22 @@ namespace PDFUnisci
                 if (value >= 10) _DefaultDigit = 10;
                 else if (value <= 1) _DefaultDigit = 1;
                 else _DefaultDigit = value;
-            } 
+            }
         }
 
         static int _CoverFunction = 1;
-        public static int CoverFunction 
-        { 
+        public static int CoverFunction
+        {
             get
             {
                 return _CoverFunction;
             }
 
             set
-            { 
-                if(value >= 1) _CoverFunction = 1;
+            {
+                if (value >= 1) _CoverFunction = 1;
                 else _CoverFunction = 0;
-            } 
+            }
         }
 
         static int _Bookmarks = 0;
@@ -98,7 +98,7 @@ namespace PDFUnisci
 
         public static void ReplaceCoverPDF(string InFile, string InCover, string OutFile)
         {
-            if(CoverFunction == 0) 
+            if (CoverFunction == 0)
             {
                 List<string> Files = new List<string>
                 {
@@ -145,7 +145,7 @@ namespace PDFUnisci
 
                 AddBookmarks(InFile, pdf);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 LogHelper.Log(e.ToString(), LogType.Error);
             }
@@ -197,7 +197,7 @@ namespace PDFUnisci
                 }
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 LogHelper.Log(e.ToString(), LogType.Error);
             }
@@ -214,9 +214,9 @@ namespace PDFUnisci
             //{[Page, 1 XYZ 0 0 null]}
             //{[Action, GoTo]}
             //{[Kids, System.Collections.Generic.List`1[System.Collections.Generic.Dictionary`2[System.String,System.Object]]]}
-            
+
             // Create a list for the bookmarks
-            List<Dictionary<String, Object>> bookmarks =  new List<Dictionary<String, Object>>();
+            List<Dictionary<String, Object>> bookmarks = new List<Dictionary<String, Object>>();
 
             int page_offset = 0;
 
@@ -230,7 +230,7 @@ namespace PDFUnisci
 
                     // merge the bookmarks
                     IList<Dictionary<String, Object>> tmp = SimpleBookmark.GetBookmark(reader);
-                    
+
                     SimpleBookmark.ShiftPageNumbers(tmp, page_offset, null);
 
                     if (Bookmarks == 1)
@@ -251,10 +251,10 @@ namespace PDFUnisci
                     {
                         foreach (var d in tmp)
                         {
-                                bookmarks.Add(d);
+                            bookmarks.Add(d);
                         }
-                     }
-                
+                    }
+
                     // add the pages
                     int n = reader.NumberOfPages;
 
@@ -276,7 +276,8 @@ namespace PDFUnisci
             }
         }
 
-        private static void AddBookmarks(string file, PdfCopy OutFile) {
+        private static void AddBookmarks(string file, PdfCopy OutFile)
+        {
             List<string> files = new List<string>() { file };
 
             AddBookmarks(files, OutFile);
